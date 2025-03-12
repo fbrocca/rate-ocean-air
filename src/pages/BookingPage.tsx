@@ -6,27 +6,62 @@ import { FreightRate } from '@/types/freight';
 import Header from '@/components/Header';
 import BookingForm from '@/components/BookingForm';
 import { ArrowLeft } from 'lucide-react';
+import { toast } from '@/hooks/use-toast';
 
 const BookingPage = () => {
   const { id } = useParams<{ id: string }>();
   const [rate, setRate] = useState<FreightRate | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   
   useEffect(() => {
     if (id) {
-      const foundRate = getRate(id);
-      if (foundRate) {
-        setRate(foundRate);
+      try {
+        const foundRate = getRate(id);
+        if (foundRate) {
+          console.log("Found rate:", foundRate);
+          setRate(foundRate);
+        } else {
+          console.error("Rate not found for ID:", id);
+          setError("Rate not found. Please try again or contact support.");
+          toast({
+            title: "Error",
+            description: "Rate not found. Please try again.",
+            variant: "destructive",
+          });
+        }
+      } catch (err) {
+        console.error("Error fetching rate:", err);
+        setError("Failed to load rate information. Please try again later.");
+      } finally {
+        setLoading(false);
       }
     }
   }, [id]);
   
-  if (!rate) {
+  if (loading) {
     return (
       <div className="min-h-screen flex flex-col bg-gray-50">
         <Header />
         <main className="flex-1 container mx-auto px-4 py-8">
           <div className="flex items-center justify-center h-64">
             <p className="text-xl text-muted-foreground">Loading booking information...</p>
+          </div>
+        </main>
+      </div>
+    );
+  }
+  
+  if (error || !rate) {
+    return (
+      <div className="min-h-screen flex flex-col bg-gray-50">
+        <Header />
+        <main className="flex-1 container mx-auto px-4 py-8">
+          <div className="flex flex-col items-center justify-center h-64">
+            <p className="text-xl text-red-500 mb-4">{error || "Rate information not available"}</p>
+            <Link to="/rates" className="text-action hover:underline">
+              Return to Rates
+            </Link>
           </div>
         </main>
       </div>

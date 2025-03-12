@@ -1,11 +1,15 @@
 
 import { Booking } from '@/types/freight';
 import { v4 as uuidv4 } from 'uuid';
+import { mockRates } from './mockRates';
+
+// Use actual rate IDs from mockRates
+const validRateIds = mockRates.map(rate => rate.id);
 
 export const mockBookings: Booking[] = [
   {
     id: uuidv4(),
-    rateId: '1', // This will be replaced with actual rate IDs
+    rateId: validRateIds[0], // Use a valid rate ID
     bookingDate: '2023-05-15',
     departureDate: '2023-06-10',
     status: 'confirmed',
@@ -13,7 +17,7 @@ export const mockBookings: Booking[] = [
   },
   {
     id: uuidv4(),
-    rateId: '2', // This will be replaced with actual rate IDs
+    rateId: validRateIds[1], // Use a valid rate ID
     bookingDate: '2023-05-20',
     departureDate: '2023-06-15',
     status: 'pending',
@@ -34,4 +38,8 @@ export const addBooking = (booking: Omit<Booking, 'id' | 'reference'>): Booking 
 
 export const getBookings = (): Booking[] => {
   return mockBookings;
+};
+
+export const getBooking = (id: string): Booking | undefined => {
+  return mockBookings.find(booking => booking.id === id);
 };
