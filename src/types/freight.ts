@@ -17,7 +17,8 @@ export type ChargeName =
   | 'Peak Season Surcharge'
   | 'War Risk Surcharge'
   | 'Low Sulfur Surcharge'
-  | 'Equipment Imbalance Surcharge';
+  | 'Equipment Imbalance Surcharge'
+  | 'Fuel Surcharge';
 
 export interface Charge {
   name: ChargeName;
