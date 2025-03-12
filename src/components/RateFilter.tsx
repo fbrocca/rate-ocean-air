@@ -87,14 +87,14 @@ const RateFilter: React.FC<RateFilterProps> = ({ onFilter, initialMode }) => {
           <div className="space-y-2">
             <label className="text-sm font-medium">Rate Type</label>
             <Select 
-              value={type || ""} 
-              onValueChange={(value) => setType(value as RateType || undefined)}
+              value={type || "all"} 
+              onValueChange={(value) => setType(value === "all" ? undefined : value as RateType)}
             >
               <SelectTrigger>
                 <SelectValue placeholder="All Rate Types" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Rate Types</SelectItem>
+                <SelectItem value="all">All Rate Types</SelectItem>
                 <SelectItem value="contract">Contract</SelectItem>
                 <SelectItem value="spot">Spot</SelectItem>
               </SelectContent>

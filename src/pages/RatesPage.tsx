@@ -21,6 +21,7 @@ const RatesPage = () => {
     mode: initialMode || undefined,
   });
   
+  // Load rates when filters change
   useEffect(() => {
     // Apply filters and load rates
     const filteredRates = getFilteredRates(
@@ -41,7 +42,7 @@ const RatesPage = () => {
     if (initialMode) {
       setFilters(prev => ({
         ...prev,
-        mode: initialMode as FreightMode
+        mode: initialMode
       }));
       console.log('Updated mode from URL params:', initialMode);
     }

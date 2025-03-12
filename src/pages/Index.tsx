@@ -1,11 +1,21 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Ship, Plane, Package, ArrowRight, DollarSign, Clock, Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 
 const Index = () => {
+  const navigate = useNavigate();
+  
+  const handleViewOceanRates = () => {
+    navigate('/rates?mode=ocean');
+  };
+  
+  const handleViewAirRates = () => {
+    navigate('/rates?mode=air');
+  };
+  
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       <Header />
@@ -22,16 +32,20 @@ const Index = () => {
                 Compare rates, track charges, and book shipments all in one place
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link to="/rates">
-                  <Button size="lg" className="bg-white text-ocean hover:bg-gray-100 w-full sm:w-auto">
-                    View Ocean Rates
-                  </Button>
-                </Link>
-                <Link to="/rates?mode=air">
-                  <Button size="lg" className="bg-white text-air hover:bg-gray-100 w-full sm:w-auto">
-                    View Air Rates
-                  </Button>
-                </Link>
+                <Button 
+                  size="lg" 
+                  className="bg-white text-ocean hover:bg-gray-100 w-full sm:w-auto"
+                  onClick={handleViewOceanRates}
+                >
+                  View Ocean Rates
+                </Button>
+                <Button 
+                  size="lg" 
+                  className="bg-white text-air hover:bg-gray-100 w-full sm:w-auto"
+                  onClick={handleViewAirRates}
+                >
+                  View Air Rates
+                </Button>
               </div>
             </div>
           </div>
@@ -51,9 +65,13 @@ const Index = () => {
                 <p className="text-gray-600 mb-4">
                   Access both your long-term contracted rates and short-term spot market rates in one place.
                 </p>
-                <Link to="/rates" className="text-ocean hover:text-ocean-dark flex items-center gap-1">
+                <Button 
+                  variant="link" 
+                  className="text-ocean hover:text-ocean-dark flex items-center gap-1 p-0"
+                  onClick={handleViewOceanRates}
+                >
                   View rates <ArrowRight className="h-4 w-4" />
-                </Link>
+                </Button>
               </div>
               
               <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
@@ -64,9 +82,13 @@ const Index = () => {
                 <p className="text-gray-600 mb-4">
                   See exactly what charges are included in each rate - no hidden fees or surprises.
                 </p>
-                <Link to="/rates" className="text-air hover:text-air-dark flex items-center gap-1">
+                <Button 
+                  variant="link" 
+                  className="text-air hover:text-air-dark flex items-center gap-1 p-0"
+                  onClick={handleViewOceanRates}
+                >
                   Compare charges <ArrowRight className="h-4 w-4" />
-                </Link>
+                </Button>
               </div>
               
               <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
@@ -94,11 +116,13 @@ const Index = () => {
                 Get started today with our comprehensive rate management system.
               </p>
               <div className="flex justify-center">
-                <Link to="/rates">
-                  <Button size="lg" className="bg-white text-ocean hover:bg-gray-100">
-                    Explore Rates
-                  </Button>
-                </Link>
+                <Button 
+                  size="lg" 
+                  className="bg-white text-ocean hover:bg-gray-100"
+                  onClick={handleViewOceanRates}
+                >
+                  Explore Rates
+                </Button>
               </div>
             </div>
           </div>
