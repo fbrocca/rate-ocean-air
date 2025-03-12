@@ -9,7 +9,7 @@ import { FreightRate } from '@/types/freight';
 
 const RatesPage = () => {
   const [searchParams] = useSearchParams();
-  const initialMode = searchParams.get('mode') as FreightMode | undefined;
+  const initialMode = searchParams.get('mode') as FreightMode | null;
   
   const [rates, setRates] = useState<FreightRate[]>([]);
   const [filters, setFilters] = useState<{
@@ -18,11 +18,11 @@ const RatesPage = () => {
     origin?: string;
     destination?: string;
   }>({
-    mode: initialMode,
+    mode: initialMode || undefined,
   });
   
   useEffect(() => {
-    // Apply filters
+    // Apply filters and load rates
     const filteredRates = getFilteredRates(
       filters.mode,
       filters.type,
@@ -30,7 +30,22 @@ const RatesPage = () => {
       filters.destination
     );
     setRates(filteredRates);
+    
+    // Log loading process for debugging
+    console.log('Loading rates with filters:', filters);
+    console.log('Found rates:', filteredRates.length);
   }, [filters]);
+  
+  // This effect runs when searchParams changes (URL query parameters)
+  useEffect(() => {
+    if (initialMode) {
+      setFilters(prev => ({
+        ...prev,
+        mode: initialMode as FreightMode
+      }));
+      console.log('Updated mode from URL params:', initialMode);
+    }
+  }, [initialMode]);
   
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">

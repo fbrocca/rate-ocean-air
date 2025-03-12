@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -21,6 +21,13 @@ const RateFilter: React.FC<RateFilterProps> = ({ onFilter, initialMode }) => {
   const [type, setType] = useState<RateType | undefined>(undefined);
   const [origin, setOrigin] = useState('');
   const [destination, setDestination] = useState('');
+  
+  // Apply initial mode when component mounts or when initialMode changes
+  useEffect(() => {
+    if (initialMode !== undefined) {
+      setMode(initialMode);
+    }
+  }, [initialMode]);
   
   const handleModeToggle = (selectedMode: FreightMode) => {
     setMode(mode === selectedMode ? undefined : selectedMode);
@@ -80,7 +87,7 @@ const RateFilter: React.FC<RateFilterProps> = ({ onFilter, initialMode }) => {
           <div className="space-y-2">
             <label className="text-sm font-medium">Rate Type</label>
             <Select 
-              value={type} 
+              value={type || ""} 
               onValueChange={(value) => setType(value as RateType || undefined)}
             >
               <SelectTrigger>
