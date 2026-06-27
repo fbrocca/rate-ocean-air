@@ -1,0 +1,35 @@
+# Audi deal scraper configuration.
+# Secrets (API key, SMTP password) come from environment variables / GitHub
+# secrets — never put them here. See .env.example and the README.
+
+search:
+  make: Audi
+  models:
+    - "e-tron GT"
+    - "RS e-tron GT"
+    - "S e-tron GT"
+  condition: new          # new | used | all
+  year_min: 2022
+  # Leave zip/radius unset for a nationwide search ("any Audi dealership in the US").
+  # zip: "33101"
+  # radius_miles: 0       # 0 = nationwide
+  max_listings: 500
+
+thresholds:
+  # Trigger 1 — big discount off MSRP.
+  min_discount_pct: 8.0   # alert when asking price is >=8% below MSRP
+  min_discount_usd: 0     # optional extra floor in dollars (0 = ignore)
+  # Trigger 2 — sharp day-over-day price drop on the same VIN.
+  min_day_drop_pct: 2.0   # alert on a >=2% drop vs. the last run...
+  min_day_drop_usd: 1500  # ...OR a >=$1,500 drop, whichever hits first
+
+notify:
+  email_to: fabio@inperaco.com
+  always_send_digest: false   # true = email every day even with no alerts
+  max_deals_in_email: 40
+
+sources:
+  - marketcheck             # recommended (needs MARKETCHECK_API_KEY)
+  # - cars_com              # experimental, no API key, more brittle
+
+data_dir: data
