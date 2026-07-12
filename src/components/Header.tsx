@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Ship, Plane, Search } from 'lucide-react';
+import { Ship, Plane, Search, Gamepad2 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -56,6 +56,10 @@ const Header = () => {
               </Link>
               <Link to="/bookings" className="flex items-center gap-1 px-3 py-2 rounded-md hover:bg-ocean-dark transition-colors">
                 <span>Bookings</span>
+              </Link>
+              <Link to="/game" className="flex items-center gap-1 px-3 py-2 rounded-md hover:bg-ocean-dark transition-colors">
+                <Gamepad2 className="h-5 w-5" />
+                <span className="hidden sm:inline">Box & Bust</span>
               </Link>
             </nav>
           </div>

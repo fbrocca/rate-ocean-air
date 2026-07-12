@@ -1,5 +1,19 @@
 # Welcome to your Lovable project
 
+## Box & Bust
+
+The app includes **Box & Bust** at `/game` — a single-player, turn-based container
+shipping strategy game. You run a container line on the Asia–Europe trade for 24
+rounds: set your freight rate, charter ships (they arrive with a delay and carry a
+minimum commitment), order newbuilds (they deliver 6 rounds later), and try to stay
+profitable through demand shocks, port congestion, and competitor-driven rate cycles.
+The end-of-game debrief scores your profit, service level, and a **bullwhip ratio**
+showing whether your capacity decisions amplified the market cycle.
+
+- Game engine (pure, deterministic per seed): `src/lib/game/`
+- UI: `src/pages/GamePage.tsx` and `src/components/game/`
+- Progress is saved to `localStorage`, so you can leave and resume a game.
+
 ## Project info
 
 **URL**: https://lovable.dev/projects/bd191e28-b0a8-4ddb-854f-107296e9e185
